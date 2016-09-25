@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="in.co.rd.beans.Credentials" table="CREDENTIALS">
+		<id name="entityKey" column="CREDENTIALSKEY">
+			<generator class="sequence">
+				<param name="sequence">CREDENTIALS_SEQ</param>
+			</generator>
+		</id>
+
+		<property name="userName" type="java.lang.String" column="USERNAME"></property>
+		<property name="password" type="java.lang.String" column="PASSWORD"></property>
+		<property name="lastLoggedIn" type="java.util.Date" column="LASTLOGGEDIN"></property>
+		<property name="actStatus" type="java.lang.String" column="ACTSTATUS"></property>
+		<property name="loginStatus" type="java.lang.String" column="LOGINSTATUS"></property>
+		<property name="expireDate" type="java.util.Date" column="EXPIREDATE"></property>
+		<many-to-one name="employee" cascade="all"
+			class="in.co.rd.beans.Employee" column="EMPLOYEEKEY"></many-to-one>
+	</class>
+	<class name="in.co.rd.beans.Employee" table="EMPLOYEE">
+		<id name="entityKey" column="EMPLOYEEKEY">
+			<generator class="sequence">
+				<param name="sequence">EMPLOYEE_SEQ</param>
+			</generator>
+		</id>
+
+		<property name="firstName" type="java.lang.String" column="FIRSTNAME"></property>
+		<property name="lastName" type="java.lang.String" column="LASTNAME"></property>
+		<property name="gender" type="java.lang.String" column="GENDER"></property>
+		<property name="designation" type="java.lang.String" column="DESIGNATION"></property>
+	</class>
+
+	<class name="in.co.rd.beans.JobDetails" table="JOBDETAILS">
+		<id name="entityKey" column="JOBKEY">
+			<generator class="sequence">
+				<param name="sequence">JOBDETAILS_SEQ</param>
+			</generator>
+		</id>
+		<property name="jobNumber" type="java.lang.String" column="JOBNUMBER"></property>
+		<property name="clientKey" type="java.lang.Long" column="CLIENTKEY"></property>
+		<property name="patientName" type="java.lang.String" column="PATIENTNAME"></property>
+		<property name="toothNumber" type="java.lang.Long" column="TOOTHNUMBER"></property>
+		<many-to-one name="jobTypeKey" class= "in.co.rd.beans.JobDetails" column="JOBTYPEKEY" cascade="all"></many-to-one> 
+		<property name="shade" type="java.lang.String" column="SHADE"></property>
+		<property name="unit" type="java.lang.Long" column="UNIT"></property>
+		<property name="deliveryDate" type="java.util.Date" column="DELIVERYDATE"></property>
+		<property name="receivedDate" type="java.util.Date" column="RECEIVEDDATE"></property>
+		<property name="amount" type="java.lang.BigDecimal" column="AMOUNT"></property>
+		<property name="priceDesc" type="java.lang.String" column="PRICEDESC"></property>
+		<property name="drComments" type="java.lang.String" column="DRCOMMENTS"></property>
+		<property name="techComments" type="java.lang.String" column="TECHCOMMENTS"></property>
+		<property name="status" type="java.lang.String" column="STATUS"></property>
+	</class>
+	<class name="in.co.rd.beans.Address" table="ADDRESS">
+		<id name="entityKey" column="ADDRESSKEY">
+			<generator class="sequence">
+				<param name="sequence">ADDRESS_SEQ</param>
+			</generator>
+		</id>
+
+		<property name="addressLine1" type="java.lang.String" column="ADDRESSLINE1"></property>
+		<property name="addressLine2" type="java.lang.String" column="ADDRESSLINE2"></property>
+		<property name="city" type="java.lang.String" column="CITY"></property>
+		<property name="state" type="java.lang.String" column="STATE"></property>
+		<property name="country" type="java.lang.String" column="COUNTRY"></property>
+		<property name="postalCode" type="java.lang.String" column="POSTALCODE"></property>
+
+	</class>
+	
+	<class name="in.co.rd.beans.Client" table="CLIENT">
+		<id name="entityKey" column="CLIENTKEY">
+			<generator class="sequence">
+				<param name="sequence">CLIENT_SEQ</param>
+			</generator>
+		</id>
+
+		<property name="addressLine1" type="java.lang.String" column="HOSPITALNAME"></property>
+		<property name="addressLine2" type="java.lang.String" column="TITLE"></property>
+		<property name="city" type="java.lang.String" column="FIRSTNAME"></property>
+		<property name="state" type="java.lang.String" column="LASTNAME"></property>
+		<property name="country" type="java.lang.String" column="GENDER"></property>
+		<many-to-one name="jobTypeKey" class= "in.co.rd.beans.Address" column="ADDRESSKEY" cascade="all"/>
+		<many-to-one name="jobTypeKey" class= "in.co.rd.beans.JobDetails" column="CONTACTKEY" cascade="all"/>
+
+	</class>
+</hibernate-mapping>  
